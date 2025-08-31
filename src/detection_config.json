@@ -1,0 +1,39 @@
+{
+  "detection_config": {
+    "enabled_objects": {
+      "cell_phone": {
+        "class_id": 67,
+        "enabled": true,
+        "color": [0, 255, 0]
+      },
+      "person": {
+        "class_id": 0,
+        "enabled": false,
+        "color": [255, 0, 0]
+      },
+      "car": {
+        "class_id": 2,
+        "enabled": false,
+        "color": [0, 255, 255]
+      },
+      "laptop": {
+        "class_id": 64,
+        "enabled": false,
+        "color": [255, 255, 0]
+      },
+      "bottle": {
+        "class_id": 39,
+        "enabled": false,
+        "color": [255, 0, 255]
+      },
+      "cup": {
+        "class_id": 41,
+        "enabled": false,
+        "color": [0, 128, 255]
+      }
+    },
+    "performance": {
+      "confidence_threshold": 0.3
+    }
+  }
+}
