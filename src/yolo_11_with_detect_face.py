@@ -1,4 +1,7 @@
 import os
+import numpy as np
+from typing import Optional
+
 # Suppress TensorFlow/MediaPipe warnings
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
@@ -12,12 +15,15 @@ from utils.camera_manager import CameraManager
 from utils.face_loader import FaceLoader
 from utils.display_manager import DisplayManager
 
-def run():
+def run() -> None:
+    camera: Optional[CameraManager] = None
+    display: Optional[DisplayManager] = None
+
     try:
         # Initialize components
         camera = CameraManager(camera_index=0, width=640, height=480)
         yolo_detector = YOLODetector("models/yolo11s.pt")
-        face_loader = FaceLoader("images")  # Use the new face loader
+        face_loader = FaceLoader("images")
         display = DisplayManager()
 
         config = load_config()
@@ -34,7 +40,7 @@ def run():
 
         while camera.is_opened():
             ret, frame = camera.read_frame()
-            if not ret:
+            if not ret or frame is None:
                 break
 
             frame_count += 1
@@ -62,9 +68,9 @@ def run():
     except Exception as e:
         print(f"Error: {e}")
     finally:
-        if 'camera' in locals():
+        if camera is not None:
             camera.release()
-        if 'display' in locals():
+        if display is not None:
             display.cleanup()
 
 if __name__ == "__main__":
